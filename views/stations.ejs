@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= title %></title>
+		<link rel='stylesheet' href='/stylesheets/style.css' />
+	</head>
+	<body>
+		<h1><%= title %></h1>
+		<a href="#errors">Errors</a>
+		<h2>Number of stations: <%= stations.length %></h2>
+		<% for(var i = 0; i < stations.length; i++) { %>    
+			<div>
+				<img src="<%= stations[i].image %>" />
+				<ul>
+						<li>Station ID: <%= stations[i].stationId %></li>
+						<li>Timestamp: <%= stations[i].timestamp %></li>
+						<li>Artist: <%= stations[i].artist %></li>
+						<li>Title: <%= stations[i].title %></li>
+				</ul>
+				<hr />
+			</div>
+		<% } %>
+		<div id="errors">
+		<h2><%= errors.length %> Stations not found:</h2>
+			<ul>
+				<% for(var i = 0; i < errors.length; i++) { %>
+					<li>
+						<%= errors[i] %>
+					</li>
+				<% } %>
+			</ul>
+		</div>
+	</body>
+</html>
