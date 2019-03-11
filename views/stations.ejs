@@ -6,7 +6,16 @@
 	</head>
 	<body>
 		<h1><%= title %></h1>
-		<a href="#errors"><%= errors.length %> Errors</a>
+		<div id="errors">
+			<h2><%= errors.length %> Stations not responding:</h2>
+			<ul>
+				<% for(var i = 0; i < errors.length; i++) { %>
+					<li>
+						<%= errors[i] %>
+					</li>
+				<% } %>
+			</ul>
+		</div>
 		<h2>Number of stations: <%= stations.length %></h2>
 		<hr />
 		<% for(var i = 0; i < stations.length; i++) { %>    
@@ -22,15 +31,6 @@
 				<hr />
 			</div>
 		<% } %>
-		<div id="errors">
-		<h2><%= errors.length %> Stations not found:</h2>
-			<ul>
-				<% for(var i = 0; i < errors.length; i++) { %>
-					<li>
-						<%= errors[i] %>
-					</li>
-				<% } %>
-			</ul>
-		</div>
+		
 	</body>
 </html>

@@ -1,8 +1,9 @@
-var express = require('express');
-var router = express.Router();
-var axios = require('axios');
+const express = require('express');
+const router = express.Router();
+const axios = require('axios');
+const moment = require('moment');
 
-var stations = require('../data/stations').stations;
+const stations = require('../data/stations').stations;
 
 
 
@@ -15,7 +16,7 @@ router.get('/', function(req, res, next) {
 		// const regex = /[A-Z]{4}-[A-Z]{2}/g;
 		
 		for (var i = 0; i < stations.length; i++) {
-			console.log("Attempting to fetch data from", stations[i].length);
+			console.log("Attempting to fetch data from", stations[i]);
 			await axios.get(stations[i])
 			.then(function(response) {
 				for (let i = 0; i < response.data.length; i++) {
@@ -23,7 +24,7 @@ router.get('/', function(req, res, next) {
 						let result = {};
 						result.calls = response.config.url.match(/[A-Z]{4}-[A-Z]{2}[0-9]?/g);
 						result.stationId = response.data[i].StationID;
-						result.timestamp = response.data[i].Stamp;
+						result.timestamp = moment.unix(response.data[i].Stamp).format('MM-DD-YYYY, HH:mm:ss');
 						result.artist = response.data[i].Artist;
 						result.title = response.data[i].Title;
 						result.image = response.data[i].Meta[1].Image200;
@@ -42,7 +43,7 @@ router.get('/', function(req, res, next) {
 	
 	var getAllStations = async () => {
 		var stationData = await getStationData();
-		res.render('stations', { stations: stationData.stations, errors: stationData.errors, title: "Station Status" });
+		res.render('stations', { stations: stationData.stations, errors: stationData.errors, title: "Station Status", showErrors: false });
 	}
 	getAllStations();
 });
