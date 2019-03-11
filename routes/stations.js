@@ -12,21 +12,21 @@ router.get('/', function(req, res, next) {
 		let results = {};
 		results.stations = [];
 		results.errors = [];
+		// const regex = /[A-Z]{4}-[A-Z]{2}/g;
 		
 		for (var i = 0; i < stations.length; i++) {
-			console.log("Attempting to fetch data from", stations[i]);
+			console.log("Attempting to fetch data from", stations[i].length);
 			await axios.get(stations[i])
 			.then(function(response) {
 				for (let i = 0; i < response.data.length; i++) {
-					if (response.data[i].StreamIndex > 0) {
+					if (response.data[i].StreamIndex >= 0) {
 						let result = {};
-						result.calls = stations[i].slice(stations[i].length-12, stations[i].length-5);
+						result.calls = response.config.url.match(/[A-Z]{4}-[A-Z]{2}[0-9]?/g);
 						result.stationId = response.data[i].StationID;
 						result.timestamp = response.data[i].Stamp;
 						result.artist = response.data[i].Artist;
 						result.title = response.data[i].Title;
 						result.image = response.data[i].Meta[1].Image200;
-						// console.log(result)
 						results.stations.push(result);
 						break;
 					}
