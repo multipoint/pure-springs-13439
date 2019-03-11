@@ -14,12 +14,13 @@ router.get('/', function(req, res, next) {
 		results.errors = [];
 		
 		for (var i = 0; i < stations.length; i++) {
-			console.log("Attempting to fetch data from ", stations[i]);
+			console.log("Attempting to fetch data from", stations[i]);
 			await axios.get(stations[i])
 			.then(function(response) {
 				for (let i = 0; i < response.data.length; i++) {
 					if (response.data[i].StreamIndex > 0) {
 						let result = {};
+						result.calls = stations[i].slice(stations[i].length-12, stations[i].length-5);
 						result.stationId = response.data[i].StationID;
 						result.timestamp = response.data[i].Stamp;
 						result.artist = response.data[i].Artist;

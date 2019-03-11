@@ -6,10 +6,12 @@
 	</head>
 	<body>
 		<h1><%= title %></h1>
-		<a href="#errors">Errors</a>
+		<a href="#errors"><%= errors.length %> Errors</a>
 		<h2>Number of stations: <%= stations.length %></h2>
+		<hr />
 		<% for(var i = 0; i < stations.length; i++) { %>    
 			<div>
+				<h2><%= stations[i].calls %></h2>
 				<img src="<%= stations[i].image %>" />
 				<ul>
 						<li>Station ID: <%= stations[i].stationId %></li>
