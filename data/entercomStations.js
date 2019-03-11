@@ -303,6 +303,6 @@ const stations = [
 ];
 
 module.exports = {
-    stations: stations
+    stations
 };
 
