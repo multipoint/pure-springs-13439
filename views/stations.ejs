@@ -6,6 +6,7 @@
 	</head>
 	<body>
 		<h1><%= title %></h1>
+		<% if (errors.length > 0) { %> 
 		<div id="errors">
 			<h2><%= errors.length %> Stations not responding:</h2>
 			<ul>
@@ -16,6 +17,7 @@
 				<% } %>
 			</ul>
 		</div>
+		<% } %>
 		<h2>Number of stations: <%= stations.length %></h2>
 		<hr />
 		<% for(var i = 0; i < stations.length; i++) { %>    
@@ -27,6 +29,7 @@
 						<li>Timestamp: <%= stations[i].timestamp %></li>
 						<li>Artist: <%= stations[i].artist %></li>
 						<li>Title: <%= stations[i].title %></li>
+						<li>Text: <%= stations[i].text %></li>
 				</ul>
 				<hr />
 			</div>
